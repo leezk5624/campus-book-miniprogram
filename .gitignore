@@ -1,0 +1,10 @@
+node_modules/
+miniprogram_npm/
+.DS_Store
+*.log
+project.private.config.json
+cloudfunctions/*/node_modules/
+cloudfunctions/*/package-lock.json
+.env
+.workbuddy/
+

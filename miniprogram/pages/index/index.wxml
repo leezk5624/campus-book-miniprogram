@@ -1,0 +1,87 @@
+<view class="page menu-page">
+  <view class="hero">
+    <view class="hero-top">
+      <view>
+        <view class="eyebrow">LIBRARY</view>
+        <view class="library-name">{{settings.libraryName || '图书管理系统'}}</view>
+      </view>
+      <view class="phone-button" bindtap="callLibrary">☎</view>
+    </view>
+    <view class="hero-meta">
+      <text>{{projectTag ? '演示中' : '开放中'}}</text>
+      <text>·</text>
+      <text>{{settings.openHours || '08:00-22:00'}}</text>
+    </view>
+    <view class="project-chip" wx:if="{{projectTag}}">🎓 {{projectTag}}</view>
+    <view class="notice" wx:if="{{settings.notice}}">
+      <text class="notice-tag">公告</text>
+      <text class="notice-text">{{settings.notice}}</text>
+    </view>
+  </view>
+
+  <view class="demo-banner" wx:if="{{demo}}">
+    当前为演示模式，数据保存在本机。完成云端部署后会自动切换为云端数据。
+  </view>
+
+  <view class="menu-shell">
+    <view class="search-box">
+      <text class="search-icon">⌕</text>
+      <input class="search-input" value="{{keyword}}" placeholder="搜索书名、作者或 ISBN" confirm-type="search" bindinput="onSearchInput" />
+      <text class="clear-search" wx:if="{{keyword}}" bindtap="clearSearch">×</text>
+    </view>
+
+    <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="category-row">
+        <view
+          class="category-item {{activeCategoryId === 'all' ? 'active' : ''}}"
+          data-id="all"
+          bindtap="chooseCategory"
+        >全部</view>
+        <view
+          wx:for="{{categories}}"
+          wx:key="_id"
+          class="category-item {{activeCategoryId === item._id ? 'active' : ''}}"
+          data-id="{{item._id}}"
+          bindtap="chooseCategory"
+        >
+          <text>{{item.name}}</text>
+          <text class="category-count">{{categoryCounts[item._id] || 0}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="book-list" wx:if="{{books.length}}">
+      <view class="book-card" wx:for="{{books}}" wx:key="_id" data-id="{{item._id}}" bindtap="goBook">
+        <view class="book-media">
+          <image wx:if="{{item.image}}" class="book-image" src="{{item.image}}" mode="aspectFill" lazy-load data-index="{{index}}" binderror="onCoverError" />
+          <view wx:else class="book-placeholder">{{item.emoji || '📘'}}</view>
+          <view class="recommend-tag" wx:if="{{item.recommended}}">推荐</view>
+        </view>
+        <view class="book-info">
+          <view class="book-name">{{item.name}}</view>
+          <view class="book-author">{{item.metaText || '作者信息待补充'}}</view>
+          <view class="book-desc">{{item.description || '暂无简介'}}</view>
+          <view class="book-bottom">
+            <view class="price-wrap">
+              <text class="currency">¥</text>
+              <text class="book-price">{{item.priceText}}</text>
+              <text class="original-price" wx:if="{{item.originalPrice}}">¥{{item.originalPriceText}}</text>
+            </view>
+            <view class="stock-text">{{item.stockText}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="list-footer" wx:if="{{loadingMore}}">正在加载更多...</view>
+    <view class="list-footer" wx:elif="{{books.length && !hasMore}}">共 {{total}} 本图书</view>
+
+    <view class="empty" wx:if="{{!books.length && !loading}}">
+      <view class="empty-icon">📚</view>
+      <view>{{keyword ? '没有找到相关图书' : '该分类暂无图书'}}</view>
+    </view>
+    <view class="loading-block" wx:if="{{loading}}">正在加载图书数据...</view>
+  </view>
+
+  <view class="icp-footer" wx:if="{{icpNumber}}">{{icpNumber}}</view>
+</view>

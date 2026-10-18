@@ -1,0 +1,41 @@
+<view class="page settings-page" wx:if="{{!loading}}">
+  <view class="tip-card">
+    设置会立即同步到图书浏览页。默认地址、电话、开放时间会展示给用户。
+  </view>
+
+  <view class="section-title">基础信息</view>
+  <view class="form-card">
+    <view class="form-row">
+      <view class="form-label">图书馆名称</view>
+      <input class="form-input" value="{{form.libraryName}}" data-field="libraryName" maxlength="30" placeholder="必填" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">开放时间</view>
+      <input class="form-input" value="{{form.openHours}}" data-field="openHours" maxlength="30" placeholder="例如 08:00-22:00" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">联系电话</view>
+      <input class="form-input" type="number" value="{{form.phone}}" data-field="phone" maxlength="20" placeholder="联系电话" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">地址</view>
+      <input class="form-input" value="{{form.address}}" data-field="address" maxlength="100" placeholder="详细地址" bindinput="onInput" />
+    </view>
+  </view>
+
+  <view class="section-title">公告</view>
+  <view class="form-card notice-card">
+    <textarea class="notice-input" value="{{form.notice}}" data-field="notice" maxlength="200" placeholder="例如：本周新书上架，欢迎查阅" bindinput="onInput" />
+  </view>
+
+  <view class="section-title">示例数据</view>
+  <view class="form-card">
+    <view class="danger-text">清空现有图书和分类，并重新写入 8 本示例图书（文学小说 / 科学技术 / 教材教辅）。</view>
+    <button class="danger-button" bindtap="resetDemoData">重置为示例图书</button>
+  </view>
+
+  <view class="save-wrap">
+    <button class="btn-primary" loading="{{saving}}" disabled="{{saving}}" bindtap="save">保存设置</button>
+  </view>
+</view>
+<view class="loading" wx:else>正在加载设置...</view>

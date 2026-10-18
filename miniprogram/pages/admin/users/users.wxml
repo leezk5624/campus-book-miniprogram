@@ -1,0 +1,49 @@
+<view class="page users-page">
+  <view class="users-hero">
+    <view>
+      <view class="hero-title">成员与权限</view>
+      <view class="hero-desc">管理员可使用图书、分类和系统设置</view>
+    </view>
+    <view class="admin-count">{{adminCount}} 位管理员</view>
+  </view>
+
+  <view class="guide-card">
+    <view class="guide-title">添加成员管理员</view>
+    <view class="guide-text">让成员先打开一次小程序，再从下方名单中找到对应账号并设为管理员。</view>
+    <view class="copy-guide" bindtap="showGuide">查看操作说明</view>
+  </view>
+
+  <view class="section-title">用户列表</view>
+  <view class="user-list" wx:if="{{users.length}}">
+    <view class="user-card" wx:for="{{users}}" wx:key="_id">
+      <view class="avatar">
+        <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}" mode="aspectFill" />
+        <text wx:else>👤</text>
+      </view>
+      <view class="user-main">
+        <view class="user-name">
+          {{item.displayName}}
+          <text class="me-tag" wx:if="{{item.isMe}}">当前账号</text>
+        </view>
+        <view class="user-meta">{{item.openidShort}}</view>
+        <view class="user-meta">最近登录 {{item.lastLoginText}}</view>
+      </view>
+      <view class="user-action">
+        <view class="role-badge {{item.role === 'admin' ? 'admin' : ''}}">{{item.roleText}}</view>
+        <button
+          class="role-button {{item.role === 'admin' ? 'demote' : 'promote'}}"
+          loading="{{updatingId === item.openid}}"
+          disabled="{{updatingId !== ''}}"
+          data-id="{{item._id}}"
+          bindtap="changeRole"
+        >{{item.role === 'admin' ? '取消管理员' : '设为管理员'}}</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:elif="{{!loading}}">
+    <view class="empty-icon">👥</view>
+    <view>暂无用户记录</view>
+  </view>
+  <view class="loading" wx:if="{{loading}}">正在加载权限管理...</view>
+</view>

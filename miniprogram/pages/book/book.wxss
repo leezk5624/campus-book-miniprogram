@@ -1,0 +1,159 @@
+.detail-page {
+  padding-bottom: 60rpx;
+  background: #f5f6f8;
+}
+
+.detail-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 620rpx;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #fffaf1, #efe0cb);
+}
+
+.detail-image {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 220rpx;
+}
+
+.detail-card {
+  position: relative;
+  margin-top: -48rpx;
+  padding: 38rpx 32rpx 34rpx;
+  border-radius: 44rpx 44rpx 0 0;
+  background: #ffffff;
+}
+
+.detail-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.detail-name {
+  flex: 1;
+  font-size: 42rpx;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.detail-heading .badge {
+  flex: none;
+}
+
+.detail-author {
+  margin-top: 14rpx;
+  color: #6f7680;
+  font-size: 25rpx;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 18rpx;
+}
+
+.tag {
+  padding: 6rpx 16rpx;
+  color: #8a6a3a;
+  font-size: 21rpx;
+  border-radius: 999rpx;
+  background: #fdf3e3;
+}
+
+.detail-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 30rpx;
+  padding-top: 26rpx;
+  border-top: 1rpx solid #f0f1f3;
+}
+
+.detail-price {
+  color: #e85d36;
+  font-size: 48rpx;
+  font-weight: 800;
+}
+
+.detail-price text {
+  margin-right: 5rpx;
+  font-size: 26rpx;
+}
+
+.stock {
+  color: #777e87;
+  font-size: 24rpx;
+}
+
+.sales {
+  margin-top: 12rpx;
+  color: #a0a5ac;
+  font-size: 23rpx;
+}
+
+.section-card {
+  margin: 22rpx 24rpx 0;
+  padding: 8rpx 28rpx 26rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 10rpx 30rpx rgba(23, 30, 41, 0.04);
+}
+
+.section-head {
+  padding: 24rpx 0 10rpx;
+  font-size: 29rpx;
+  font-weight: 700;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 14rpx 0;
+  font-size: 25rpx;
+  line-height: 1.5;
+  border-bottom: 1rpx solid #f5f6f8;
+}
+
+.info-row:last-child {
+  border-bottom: 0;
+}
+
+.info-label {
+  flex: none;
+  width: 150rpx;
+  color: #969ba3;
+}
+
+.info-value {
+  flex: 1;
+  color: #2c3138;
+  word-break: break-all;
+}
+
+.paragraph {
+  margin-top: 14rpx;
+  color: #4d545d;
+  font-size: 27rpx;
+  line-height: 1.85;
+  text-align: justify;
+  white-space: pre-wrap;
+}
+
+.loading-block {
+  padding: 140rpx 0;
+  color: #9ba0a8;
+  text-align: center;
+}

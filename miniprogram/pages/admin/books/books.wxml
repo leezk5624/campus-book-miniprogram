@@ -1,0 +1,68 @@
+<view class="page books-page">
+  <view class="top-actions">
+    <view>
+      <view class="page-title">图书管理</view>
+      <view class="page-sub">共 {{total}} 本图书，可随时上下架</view>
+    </view>
+    <view class="top-buttons">
+      <button class="category-button" bindtap="openCategories">分类</button>
+      <button class="add-btn" bindtap="addBook">＋ 新增图书</button>
+    </view>
+  </view>
+
+  <view class="search-box">
+    <text class="search-icon">⌕</text>
+    <input value="{{keyword}}" placeholder="搜索书名、作者或 ISBN" confirm-type="search" bindinput="onSearchInput" />
+    <text class="clear-search" wx:if="{{keyword}}" bindtap="clearSearch">×</text>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="category-row">
+      <view class="category-chip {{activeCategoryId === 'all' ? 'active' : ''}}" data-id="all" bindtap="chooseCategory">全部</view>
+      <view
+        wx:for="{{categories}}"
+        wx:key="_id"
+        class="category-chip {{activeCategoryId === item._id ? 'active' : ''}}"
+        data-id="{{item._id}}"
+        bindtap="chooseCategory"
+      >{{item.name}}<text class="chip-count" wx:if="{{categoryCounts[item._id]}}">{{categoryCounts[item._id]}}</text></view>
+    </view>
+  </scroll-view>
+
+  <view class="book-list" wx:if="{{list.length}}">
+    <view class="book-row" wx:for="{{list}}" wx:key="_id">
+      <view class="book-thumb">
+        <image wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill" lazy-load data-index="{{index}}" binderror="onCoverError" />
+        <text wx:else>{{item.emoji || '📘'}}</text>
+        <view class="off-chip" wx:if="{{!item.enabled}}">下架</view>
+      </view>
+      <view class="book-main" data-id="{{item._id}}" bindtap="editBook">
+        <view class="book-name">
+          <text class="name-text">{{item.name}}</text>
+          <text class="badge" wx:if="{{item.recommended}}">推荐</text>
+        </view>
+        <view class="book-author">{{item.author || '未填写作者'}}</view>
+        <view class="book-meta">{{item.categoryName}} · {{item.stockText}} · 借阅 {{item.sales || 0}}</view>
+        <view class="book-price">¥{{item.priceText}}</view>
+      </view>
+      <view class="book-actions">
+        <switch checked="{{item.enabled}}" color="#e85d36" data-id="{{item._id}}" bindchange="toggleBook" />
+        <view class="action-row">
+          <text data-id="{{item._id}}" bindtap="editBook">编辑</text>
+          <text data-id="{{item._id}}" bindtap="copyBook">复制</text>
+          <text class="danger" data-id="{{item._id}}" bindtap="deleteBook">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="list-footer" wx:if="{{loadingMore}}">正在加载更多...</view>
+  <view class="list-footer" wx:elif="{{list.length && !hasMore}}">已经到底了</view>
+
+  <view class="empty" wx:if="{{!list.length && !loading}}">
+    <view class="empty-icon">📚</view>
+    <view>{{keyword ? '没有找到匹配图书' : '该分类暂无图书'}}</view>
+    <button class="btn-secondary empty-add" bindtap="addBook">新增图书</button>
+  </view>
+  <view class="loading" wx:if="{{loading}}">正在加载图书...</view>
+</view>

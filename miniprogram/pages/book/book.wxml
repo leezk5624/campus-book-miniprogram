@@ -1,0 +1,43 @@
+<view class="page detail-page" wx:if="{{book}}">
+  <view class="detail-media" bindtap="previewCover">
+    <image wx:if="{{book.image}}" class="detail-image" src="{{book.image}}" mode="aspectFit" binderror="onCoverError" />
+    <view wx:else class="detail-placeholder">{{book.emoji || '📘'}}</view>
+  </view>
+
+  <view class="detail-card">
+    <view class="detail-heading">
+      <view class="detail-name">{{book.name}}</view>
+      <view class="badge" wx:if="{{book.recommended}}">推荐图书</view>
+    </view>
+    <view class="detail-author">{{book.metaText || '作者信息待补充'}}</view>
+
+    <view class="tag-row" wx:if="{{tagList.length}}">
+      <text class="tag" wx:for="{{tagList}}" wx:key="*this">{{item}}</text>
+    </view>
+
+    <view class="detail-meta">
+      <view class="detail-price"><text>¥</text>{{book.priceText}}</view>
+      <view class="stock">{{book.stockText}}</view>
+    </view>
+    <view class="sales">借阅次数 {{book.sales || 0}}</view>
+  </view>
+
+  <view class="section-card" wx:if="{{metaRows.length}}">
+    <view class="section-head">书目信息</view>
+    <view class="info-row" wx:for="{{metaRows}}" wx:key="label">
+      <text class="info-label">{{item.label}}</text>
+      <text class="info-value">{{item.value}}</text>
+    </view>
+  </view>
+
+  <view class="section-card" wx:if="{{paragraphs.length}}">
+    <view class="section-head">内容简介</view>
+    <view class="paragraph" wx:for="{{paragraphs}}" wx:key="*this">{{item}}</view>
+  </view>
+</view>
+
+<view class="empty" wx:elif="{{!loading}}">
+  <view class="empty-icon">📚</view>
+  <view>图书不存在或已下架</view>
+</view>
+<view class="loading-block" wx:else>正在加载图书信息...</view>

@@ -1,0 +1,43 @@
+<view class="page categories-page">
+  <view class="add-card">
+    <view class="card-head">
+      <view class="card-title">新增分类</view>
+      <view class="card-desc">分类会按排序值从小到大显示</view>
+    </view>
+    <view class="add-row">
+      <input class="name-input" value="{{newName}}" data-field="newName" maxlength="12" placeholder="分类名称，例如：文学小说" bindinput="onNewInput" />
+      <input class="sort-input" type="number" value="{{newSort}}" data-field="newSort" placeholder="排序" bindinput="onNewInput" />
+      <button class="add-button" loading="{{savingNew}}" bindtap="addCategory">添加</button>
+    </view>
+  </view>
+
+  <view class="section-title">
+    <text>现有分类</text>
+    <text class="muted">{{categories.length}} 个</text>
+  </view>
+
+  <view class="category-list" wx:if="{{categories.length}}">
+    <view class="category-card" wx:for="{{categories}}" wx:key="_id">
+      <view class="category-index">{{index + 1}}</view>
+      <view class="category-main">
+        <input class="category-name-input" value="{{item.name}}" data-index="{{index}}" data-field="name" maxlength="12" bindinput="onCategoryInput" />
+        <view class="category-meta">包含 {{item.bookCount}} 本图书</view>
+      </view>
+      <view class="sort-wrap">
+        <text>排序</text>
+        <input type="number" value="{{item.sort}}" data-index="{{index}}" data-field="sort" bindinput="onCategoryInput" />
+      </view>
+      <switch checked="{{item.enabled}}" color="#e85d36" data-index="{{index}}" bindchange="onEnabledChange" />
+      <view class="category-actions">
+        <text data-index="{{index}}" bindtap="saveCategory">保存</text>
+        <text class="danger" data-id="{{item._id}}" bindtap="deleteCategory">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:elif="{{!loading}}">
+    <view class="empty-icon">▦</view>
+    <view>还没有分类，请先新增</view>
+  </view>
+  <view class="loading" wx:if="{{loading}}">正在加载分类...</view>
+</view>

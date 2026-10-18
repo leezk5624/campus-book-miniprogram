@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/book/book",
+    "pages/profile/profile",
+    "pages/admin/books/books",
+    "pages/admin/book-edit/book-edit",
+    "pages/admin/categories/categories",
+    "pages/admin/settings/settings",
+    "pages/admin/setup/setup",
+    "pages/admin/users/users",
+    "pages/admin/system/system"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "图书管理系统",
+    "backgroundColor": "#f5f6f8",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8b9098",
+    "selectedColor": "#e85d36",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "图书"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

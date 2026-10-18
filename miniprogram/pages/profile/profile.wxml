@@ -1,0 +1,77 @@
+<view class="page profile-page">
+  <view class="profile-hero">
+    <view class="avatar">
+      <image wx:if="{{user.avatarUrl}}" src="{{user.avatarUrl}}" mode="aspectFill" />
+      <text wx:else>👤</text>
+    </view>
+    <view class="user-main">
+      <view class="user-name">{{user.nickName || '微信用户'}}</view>
+      <view class="user-role">{{isAdmin ? '管理员' : '普通用户'}}</view>
+    </view>
+    <view class="demo-chip" wx:if="{{demo}}">演示模式</view>
+  </view>
+
+  <view class="project-banner" wx:if="{{projectTag}}">🎓 {{projectTag}}</view>
+
+  <view class="admin-section" wx:if="{{isAdmin}}">
+    <view class="section-title">管理功能</view>
+    <view class="admin-grid">
+      <view class="admin-item" data-url="/pages/admin/books/books" bindtap="openUrl">
+        <view class="admin-icon green">📚</view>
+        <view class="admin-name">图书管理</view>
+      </view>
+      <view class="admin-item" data-url="/pages/admin/categories/categories" bindtap="openUrl">
+        <view class="admin-icon purple">▦</view>
+        <view class="admin-name">分类管理</view>
+      </view>
+      <view class="admin-item" data-url="/pages/admin/settings/settings" bindtap="openUrl">
+        <view class="admin-icon gray">⚙</view>
+        <view class="admin-name">系统设置</view>
+      </view>
+      <view class="admin-item" data-url="/pages/admin/setup/setup" bindtap="openUrl">
+        <view class="admin-icon dark">🔐</view>
+        <view class="admin-name">管理员设置</view>
+      </view>
+      <view class="admin-item" data-url="/pages/admin/users/users" bindtap="openUrl">
+        <view class="admin-icon blue">👥</view>
+        <view class="admin-name">权限管理</view>
+      </view>
+      <view class="admin-item" data-url="/pages/admin/system/system" bindtap="openUrl">
+        <view class="admin-icon green">🩺</view>
+        <view class="admin-name">部署状态</view>
+      </view>
+    </view>
+  </view>
+
+  <block wx:else>
+    <view class="section-title">管理员入口</view>
+    <view class="profile-card setup-entry" wx:if="{{!adminInitialized}}" data-url="/pages/admin/setup/setup" bindtap="openUrl">
+      <view>
+        <view class="entry-title">绑定首位管理员</view>
+        <view class="entry-desc">使用云函数环境变量中的初始化令牌</view>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+    <view class="profile-card info-card" wx:else>
+      <view class="entry-title">用户账号</view>
+      <view class="entry-desc">如需管理权限，请联系管理员开通</view>
+    </view>
+  </block>
+
+  <view class="section-title">图书馆信息</view>
+  <view class="profile-card info-card">
+    <view class="info-row"><text>名称</text><text>{{settings.libraryName || '-'}}</text></view>
+    <view class="info-row"><text>开放时间</text><text>{{settings.openHours || '-'}}</text></view>
+    <view class="info-row"><text>地址</text><text>{{settings.address || '-'}}</text></view>
+    <view class="info-row" bindtap="callLibrary"><text>电话</text><text class="phone">{{settings.phone || '-'}}</text></view>
+  </view>
+
+  <view class="section-title">账户与设置</view>
+  <view class="profile-card action-list">
+    <view class="action-row" wx:if="{{demo}}" bindtap="resetDemo"><text>重置演示数据</text><text class="arrow">›</text></view>
+    <view class="action-row"><text>当前版本</text><text class="muted">v{{version}}</text></view>
+  </view>
+
+  <view class="privacy-tip">图书信息仅用于馆藏展示</view>
+  <view class="icp-footer" wx:if="{{icpNumber}}">{{icpNumber}}</view>
+</view>

@@ -1,0 +1,53 @@
+.settings-page {
+  padding: 24rpx 24rpx 60rpx;
+}
+
+.tip-card {
+  padding: 22rpx 24rpx;
+  color: #8b5a12;
+  font-size: 23rpx;
+  line-height: 1.55;
+  border-radius: 18rpx;
+  background: #fff7dd;
+}
+
+.notice-card {
+  padding-top: 24rpx;
+  padding-bottom: 24rpx;
+}
+
+.notice-input {
+  width: 100%;
+  height: 170rpx;
+  font-size: 27rpx;
+  line-height: 1.6;
+}
+
+.save-wrap {
+  padding: 16rpx 0 40rpx;
+}
+
+.loading {
+  padding: 150rpx 0;
+  color: #999fa7;
+  text-align: center;
+}
+
+.danger-text {
+  margin-bottom: 20rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #8b9098;
+}
+
+.danger-button {
+  font-size: 27rpx;
+  color: #d94a33;
+  border: 2rpx solid #f0c4ba;
+  border-radius: 14rpx;
+  background: #fff6f4;
+}
+
+.danger-button::after {
+  border: none;
+}

@@ -1,0 +1,167 @@
+.users-page {
+  padding: 24rpx 24rpx 60rpx;
+}
+
+.users-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding: 34rpx 30rpx;
+  color: #ffffff;
+  border-radius: 28rpx;
+  background: linear-gradient(145deg, #30363f, #1e232a);
+  box-shadow: 0 16rpx 38rpx rgba(30, 35, 42, 0.2);
+}
+
+.hero-title {
+  font-size: 37rpx;
+  font-weight: 800;
+}
+
+.hero-desc {
+  margin-top: 12rpx;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 22rpx;
+  line-height: 1.55;
+}
+
+.admin-count {
+  flex: none;
+  padding: 9rpx 15rpx;
+  font-size: 20rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.guide-card {
+  margin-top: 22rpx;
+  padding: 26rpx 28rpx;
+  border-radius: 22rpx;
+  background: #fff7dd;
+}
+
+.guide-title {
+  color: #7d4d0d;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.guide-text {
+  margin-top: 9rpx;
+  color: #8b5a12;
+  font-size: 22rpx;
+  line-height: 1.55;
+}
+
+.copy-guide {
+  margin-top: 18rpx;
+  color: #d75a2f;
+  font-size: 22rpx;
+  font-weight: 650;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18rpx;
+  padding: 24rpx 22rpx;
+  border-radius: 22rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 26rpx rgba(23, 30, 41, 0.04);
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 88rpx;
+  height: 88rpx;
+  overflow: hidden;
+  font-size: 38rpx;
+  border-radius: 50%;
+  background: #f0f1f3;
+}
+
+.avatar image {
+  width: 100%;
+  height: 100%;
+}
+
+.user-main {
+  flex: 1;
+  min-width: 0;
+  padding: 0 18rpx;
+}
+
+.user-name {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  overflow: hidden;
+  font-size: 28rpx;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.me-tag {
+  flex: none;
+  padding: 4rpx 9rpx;
+  color: #3972c8;
+  font-size: 17rpx;
+  border-radius: 8rpx;
+  background: #edf4ff;
+}
+
+.user-meta {
+  margin-top: 7rpx;
+  overflow: hidden;
+  color: #999ea6;
+  font-size: 19rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-action {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.role-badge {
+  padding: 6rpx 12rpx;
+  color: #7a8088;
+  font-size: 19rpx;
+  border-radius: 999rpx;
+  background: #f0f1f3;
+}
+
+.role-badge.admin {
+  color: #19895f;
+  background: #eaf8f2;
+}
+
+.role-button {
+  padding: 12rpx 16rpx;
+  font-size: 20rpx;
+  border-radius: 13rpx;
+}
+
+.role-button.promote {
+  color: #ffffff;
+  background: #19895f;
+}
+
+.role-button.demote {
+  color: #d2553b;
+  background: #fff0ea;
+}
+
+.loading {
+  padding: 100rpx 0;
+  color: #9ba0a8;
+  text-align: center;
+}

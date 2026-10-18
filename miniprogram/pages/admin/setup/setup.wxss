@@ -1,0 +1,111 @@
+.setup-page {
+  padding: 32rpx 24rpx 60rpx;
+}
+
+.setup-hero {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 60rpx 30rpx 50rpx;
+  text-align: center;
+}
+
+.shield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 126rpx;
+  height: 126rpx;
+  margin-bottom: 28rpx;
+  font-size: 62rpx;
+  border-radius: 40rpx;
+  background: #fff0e9;
+}
+
+.hero-title {
+  font-size: 38rpx;
+  font-weight: 800;
+}
+
+.hero-desc {
+  margin-top: 18rpx;
+  color: #8a9098;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+.setup-card {
+  padding: 30rpx;
+  border-radius: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 10rpx 32rpx rgba(23, 30, 41, 0.06);
+}
+
+.field-label {
+  margin-bottom: 16rpx;
+  font-size: 26rpx;
+  font-weight: 650;
+}
+
+.token-input {
+  height: 88rpx;
+  padding: 0 24rpx;
+  margin-bottom: 26rpx;
+  border: 2rpx solid #eceef1;
+  border-radius: 18rpx;
+  background: #fafbfc;
+}
+
+.demo-tip {
+  margin-top: 22rpx;
+  color: #9a6a21;
+  font-size: 22rpx;
+  text-align: center;
+}
+
+.success-card {
+  padding: 10rpx 28rpx;
+}
+
+.success-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100rpx;
+  border-bottom: 1rpx solid #f0f1f3;
+}
+
+.success-row:last-child {
+  border-bottom: 0;
+}
+
+.success-row > text:first-child {
+  color: #747a83;
+}
+
+.success-row > text:last-child {
+  max-width: 420rpx;
+  color: #2f343b;
+  text-align: right;
+}
+
+.success {
+  color: #16855c !important;
+  font-weight: 700;
+}
+
+.security-note {
+  margin-top: 28rpx;
+  padding: 28rpx;
+  color: #7d838b;
+  font-size: 23rpx;
+  line-height: 1.7;
+  border-radius: 22rpx;
+  background: #f0f1f3;
+}
+
+.note-title {
+  margin-bottom: 10rpx;
+  color: #40464e;
+  font-weight: 700;
+}

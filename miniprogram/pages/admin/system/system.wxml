@@ -1,0 +1,101 @@
+<view class="page system-page">
+  <view class="system-hero">
+    <view class="hero-top">
+      <view>
+        <view class="hero-label">当前运行环境</view>
+        <view class="hero-env">{{health.envId || '正在检测...'}}</view>
+      </view>
+      <view class="mode-chip {{health.demo ? 'demo' : ''}}">{{health.demo ? '演示模式' : '云开发'}}</view>
+    </view>
+    <view class="hero-meta">时区 {{health.timezone || '-'}} · 检测 {{health.checkedAtText || '-'}}</view>
+    <view class="hero-admin">管理员：{{health.admin.nickName || '-'}} · {{health.admin.openidMask || '-'}}</view>
+  </view>
+
+  <view class="section-title">
+    <text>部署检查</text>
+    <text class="muted">{{checks.length}} 项</text>
+  </view>
+  <view class="check-card">
+    <view class="check-row" wx:for="{{checks}}" wx:key="key">
+      <view class="check-icon {{item.ok ? 'ok' : (item.optional ? 'optional' : 'fail')}}">{{item.ok ? '✓' : (item.optional ? '!' : '×')}}</view>
+      <view class="check-main">
+        <view class="check-title">{{item.label}}</view>
+        <view class="check-message">{{item.message}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">数据概览</view>
+  <view class="collection-grid">
+    <view class="collection-item" wx:for="{{collections}}" wx:key="key">
+      <view class="collection-value {{item.exists ? '' : 'missing'}}">{{item.count}}</view>
+      <view class="collection-label">{{item.label}}</view>
+      <view class="collection-state">{{item.exists ? '正常' : '未创建'}}</view>
+    </view>
+  </view>
+
+  <view class="section-title" wx:if="{{visibility}}">前台可见性排查</view>
+  <view class="check-card" wx:if="{{visibility}}">
+    <view class="check-row" wx:for="{{visibilityRows}}" wx:key="key">
+      <view class="check-icon {{item.value > 0 ? 'ok' : 'fail'}}">{{item.value > 0 ? '✓' : '×'}}</view>
+      <view class="check-main">
+        <view class="check-title">{{item.label}}</view>
+        <view class="check-message">{{item.value}}</view>
+      </view>
+    </view>
+    <view class="check-row" wx:if="{{visibility.frontError}}">
+      <view class="check-icon fail">!</view>
+      <view class="check-main">
+        <view class="check-title">前台查询报错</view>
+        <view class="check-message">{{visibility.frontError}}</view>
+      </view>
+    </view>
+    <view class="visibility-note">分类 {{visibility.categories}} 个（启用 {{visibility.enabledCategories}} 个）。逐级减少说明被对应过滤条件挡住。</view>
+  </view>
+
+  <view class="section-title" wx:if="{{auditLogs.length}}">管理员操作日志</view>
+  <view class="check-card" wx:if="{{auditLogs.length}}">
+    <view class="check-row" wx:for="{{auditLogs}}" wx:key="_id">
+      <view class="check-icon ok">·</view>
+      <view class="check-main">
+        <view class="check-title">{{item.detail || item.action}}</view>
+        <view class="check-message">{{item.timeText}} · {{item.openidMask}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">正式部署方法</view>
+  <view class="deploy-card">
+    <view class="deploy-step">
+      <view class="step-number">1</view>
+      <view><view class="step-title">准备账号</view><view class="step-desc">注册小程序、获取 AppID，并开通云开发环境。</view></view>
+    </view>
+    <view class="deploy-step">
+      <view class="step-number">2</view>
+      <view><view class="step-title">连接项目</view><view class="step-desc">用微信开发者工具导入项目，填写真实 AppID 和 cloudEnv。</view></view>
+    </view>
+    <view class="deploy-step">
+      <view class="step-number">3</view>
+      <view><view class="step-title">创建数据</view><view class="step-desc">创建 4 个数据库集合，权限全部设置为不可读写。</view></view>
+    </view>
+    <view class="deploy-step">
+      <view class="step-number">4</view>
+      <view><view class="step-title">部署云函数</view><view class="step-desc">部署 api，选择云端安装依赖，并配置 ADMIN_SETUP_TOKEN。</view></view>
+    </view>
+    <view class="deploy-step">
+      <view class="step-number">5</view>
+      <view><view class="step-title">绑定管理员</view><view class="step-desc">进入管理员设置输入初始化令牌，绑定首位管理员。</view></view>
+    </view>
+    <view class="deploy-step">
+      <view class="step-number">6</view>
+      <view><view class="step-title">配置上线</view><view class="step-desc">录入系统和图书，完成测试后上传体验版并提交审核。</view></view>
+    </view>
+    <button class="btn-primary checklist-button" bindtap="showChecklist">查看完整部署清单</button>
+    <button class="btn-secondary setup-button" bindtap="goSetup">前往管理员设置</button>
+  </view>
+
+  <view class="warning-card" wx:if="{{health.demo}}">
+    当前数据保存在本机，仅供体验。完成云端部署后会自动切换为云端演示数据。
+  </view>
+  <view class="loading" wx:if="{{loading && !health}}">正在检查云环境...</view>
+</view>

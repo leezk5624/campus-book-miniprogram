@@ -1,0 +1,27 @@
+<view class="page setup-page">
+  <view class="setup-hero">
+    <view class="shield">🔐</view>
+    <view class="hero-title">{{isAdmin ? '当前账号已具备管理权限' : '绑定管理员'}}</view>
+    <view class="hero-desc" wx:if="{{isAdmin}}">可返回“我的”页面进入全部管理功能。</view>
+    <view class="hero-desc" wx:else>首次部署时，使用云函数环境变量 ADMIN_SETUP_TOKEN 的值完成绑定。</view>
+  </view>
+
+  <view class="setup-card" wx:if="{{!isAdmin}}">
+    <view class="field-label">初始化令牌</view>
+    <input class="token-input" password value="{{token}}" placeholder="请输入部署时设置的管理员令牌" bindinput="onTokenInput" />
+    <button class="btn-primary" loading="{{submitting}}" disabled="{{submitting}}" bindtap="claimAdmin">验证并绑定管理员</button>
+    <view class="demo-tip" wx:if="{{demo}}">演示模式令牌：{{demoToken}}</view>
+  </view>
+
+  <view class="setup-card success-card" wx:else>
+    <view class="success-row" bindtap="checkRole"><text>权限状态</text><text class="success">已验证</text></view>
+    <view class="success-row"><text>可用功能</text><text>图书、分类、系统设置</text></view>
+  </view>
+
+  <view class="security-note">
+    <view class="note-title">安全说明</view>
+    <view class="note-item">1. 请勿把真实初始化令牌写入代码或发送给用户。</view>
+    <view class="note-item">2. 首次管理员绑定后，普通用户即使知道令牌也不能重复获取权限。</view>
+    <view class="note-item">3. 管理员身份与当前微信 OpenID 绑定，所有管理接口均在云函数中校验。</view>
+  </view>
+</view>

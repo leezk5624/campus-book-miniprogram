@@ -1,0 +1,125 @@
+<view class="page edit-page" wx:if="{{!loading}}">
+  <view class="copy-tip" wx:if="{{copyMode}}">正在复制图书：保存后会生成一本新书，不会修改原图书。</view>
+
+  <view class="cover-card">
+    <view class="cover-preview" bindtap="previewCover">
+      <image wx:if="{{form.image}}" src="{{form.image}}" mode="aspectFill" />
+      <view wx:else class="cover-empty">
+        <text class="cover-emoji">{{form.emoji || '📘'}}</text>
+        <text>暂无封面</text>
+      </view>
+      <view class="cover-mask" wx:if="{{form.image}}">点击预览</view>
+      <view class="uploading-mask" wx:if="{{uploading}}">上传中...</view>
+    </view>
+    <view class="cover-side">
+      <view class="cover-title">图书封面</view>
+      <view class="cover-tip">建议 3:4 竖版封面，不超过 10MB，会自动压缩后上传。</view>
+      <view class="cover-buttons">
+        <button class="cover-btn primary" loading="{{uploading}}" disabled="{{uploading || saving}}" bindtap="chooseCover">{{form.image ? '更换封面' : '上传封面'}}</button>
+        <button class="cover-btn" wx:if="{{form.image}}" disabled="{{uploading || saving}}" bindtap="removeCover">移除</button>
+      </view>
+      <view class="cover-note">未上传封面时使用下方“封面图标”展示</view>
+    </view>
+  </view>
+
+  <view class="form-card">
+    <view class="card-title">基本书目</view>
+    <view class="form-row">
+      <view class="form-label">书名 <text class="required">*</text></view>
+      <input class="form-input" value="{{form.name}}" data-field="name" maxlength="60" placeholder="必填" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">分类 <text class="required">*</text></view>
+      <picker class="form-input picker" mode="selector" range="{{categoryNames}}" value="{{categoryIndex}}" bindchange="onCategoryChange">
+        <view>{{categoryNames[categoryIndex] || '请选择分类'}} ›</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <view class="form-label">作者</view>
+      <input class="form-input" value="{{form.author}}" data-field="author" maxlength="40" placeholder="选填" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">出版社</view>
+      <input class="form-input" value="{{form.publisher}}" data-field="publisher" maxlength="60" placeholder="选填" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">ISBN</view>
+      <input class="form-input" value="{{form.isbn}}" data-field="isbn" maxlength="20" placeholder="选填，10~17 位" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">出版年份</view>
+      <input class="form-input" type="number" value="{{form.publishYear}}" data-field="publishYear" maxlength="4" placeholder="例如 2020" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">页数</view>
+      <input class="form-input" type="number" value="{{form.pages}}" data-field="pages" maxlength="6" placeholder="选填" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">标签</view>
+      <input class="form-input" value="{{form.tagsText}}" data-field="tagsText" maxlength="80" placeholder="用、分隔，最多 8 个" bindinput="onInput" />
+    </view>
+  </view>
+
+  <view class="form-card">
+    <view class="card-title">馆藏与上架</view>
+    <view class="form-row">
+      <view class="form-label">不限馆藏</view>
+      <switch checked="{{stockUnlimited}}" color="#e85d36" bindchange="onStockUnlimited" />
+    </view>
+    <view class="form-row" wx:if="{{!stockUnlimited}}">
+      <view class="form-label">馆藏数量</view>
+      <input class="form-input" type="number" value="{{form.stock}}" data-field="stock" placeholder="0" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">馆藏位置</view>
+      <input class="form-input" value="{{form.location}}" data-field="location" maxlength="40" placeholder="如 A区-01-03" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">定价（元）</view>
+      <input class="form-input" type="digit" value="{{form.price}}" data-field="price" placeholder="0.00" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">划线价（元）</view>
+      <input class="form-input" type="digit" value="{{form.originalPrice}}" data-field="originalPrice" placeholder="选填" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">排序值</view>
+      <input class="form-input" type="number" value="{{form.sort}}" data-field="sort" placeholder="数字越小越靠前" bindinput="onInput" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">立即上架</view>
+      <switch checked="{{form.enabled}}" color="#e85d36" data-field="enabled" bindchange="onSwitch" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">推荐图书</view>
+      <switch checked="{{form.recommended}}" color="#e85d36" data-field="recommended" bindchange="onSwitch" />
+    </view>
+    <view class="form-row">
+      <view class="form-label">封面图标</view>
+      <input class="form-input emoji-input" value="{{form.emoji}}" data-field="emoji" maxlength="4" placeholder="无封面时显示" bindinput="onInput" />
+    </view>
+  </view>
+
+  <view class="form-card text-card">
+    <view class="card-title">图书介绍</view>
+    <view class="field-block">
+      <view class="field-head">
+        <text>一句话简介</text>
+        <text class="counter">{{form.description.length}}/200</text>
+      </view>
+      <textarea class="short-input" value="{{form.description}}" data-field="description" maxlength="200" placeholder="列表页展示的简短介绍" bindinput="onInput" />
+    </view>
+    <view class="field-block">
+      <view class="field-head">
+        <text>详细介绍</text>
+        <text class="counter">{{introLength}}/{{introLimit}}</text>
+      </view>
+      <textarea class="intro-input" value="{{form.intro}}" data-field="intro" maxlength="{{introLimit}}" auto-height placeholder="内容简介、作者介绍、适读人群等，可分段" bindinput="onInput" />
+    </view>
+  </view>
+
+  <view class="save-wrap">
+    <button class="btn-primary" loading="{{saving}}" disabled="{{saving || uploading}}" bindtap="save">{{copyMode ? '创建图书副本' : '保存图书'}}</button>
+  </view>
+</view>
+<view class="loading" wx:else>正在加载图书信息...</view>
